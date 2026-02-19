@@ -1,0 +1,67 @@
+[project]
+name = "ip-geo-service"
+version = "0.1.0"
+description = "Ip-geo-service for LinaNova"
+readme = "DEVELOPMENT_NOTES.md"
+packages = [
+    { include = "src" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.129.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.12.5",
+    "uvicorn>=0.41.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.1",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [
+    "migrations",
+    "__pycache__",
+    ".git",
+    ".pytest_cache",
+    ".mypy_cache",
+    "node_modules",
+    "build",
+    "lib",
+    ".idea",
+    ".vscode",
+    ".ruff_cache",
+    ".venv",
+]
+fix = true
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # import sorting
+    "B",   # bugbear
+    "C4",  # comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # simplifications
+]
+
+ignore = [
+    "E501",  # line too long
+    "B904",   # raise without from inside except
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
