@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
+from src.api.router import api_router
 from src.core.config import base_config
 from src.core.constants import DESCRIPTION
 
@@ -13,14 +14,7 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
-
-@app.get(
-    "/health",
-    summary="Health check",
-)
-async def health() -> dict[str, str]:
-    return {"status": "ok"}
-
+app.include_router(api_router, prefix="/api")
 
 if __name__ == "__main__":
     uvicorn.run(

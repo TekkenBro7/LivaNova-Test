@@ -22,7 +22,7 @@ class GeoConfig:
         "http://ip-api.com/json",
     )
 
-    TIMEOUT: float = float(
+    TIMEOUT: int = int(
         os.getenv(
             "IP_API_TIMEOUT",
             10,
