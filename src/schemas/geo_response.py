@@ -20,6 +20,7 @@ class GeoResponse(BaseModel):
         is_proxy: True if the IP is a proxy.
         is_hosting: True if the IP is a hosting server.
     """
+
     ip: str = Field(..., examples=["46.53.134.81"])
     country: str | None = Field(default=None, examples=["Belarus"])
     country_code: str | None = Field(default=None, examples=["BY"])

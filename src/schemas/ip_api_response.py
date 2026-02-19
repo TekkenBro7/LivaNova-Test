@@ -32,6 +32,7 @@ class IPAPIResponse(BaseModel):
         hosting: True if the IP is hosting server.
         query: The queried IP address.
     """
+
     status: str
     message: str | None = None
     continent: str | None = None

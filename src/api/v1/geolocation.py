@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from src.core.enums import HTTPStatusCode
+from src.dependencies.geo_service_dependence import get_geo_service
 from src.schemas.geo_response import GeoResponse
-from src.services.geolocation_service import geo_service
+from src.services.geolocation_service import GeoIPService
 
 router = APIRouter()
 
@@ -18,7 +19,10 @@ router = APIRouter()
     ),
     status_code=HTTPStatusCode.OK,
 )
-async def get_geo(ip: str = Query(..., description="The IPv4 address to lookup")) -> GeoResponse:
+async def get_geo(
+    ip: str = Query(..., description="The IPv4 address to lookup"),
+    geo_service: GeoIPService = Depends(get_geo_service),
+) -> GeoResponse:
     """
     Get geolocation information for a provided IP address.
 
@@ -48,7 +52,10 @@ async def get_geo(ip: str = Query(..., description="The IPv4 address to lookup")
     ),
     status_code=HTTPStatusCode.OK,
 )
-async def get_geo_me(request: Request) -> GeoResponse:
+async def get_geo_me(
+    request: Request,
+    geo_service: GeoIPService = Depends(get_geo_service),
+) -> GeoResponse:
     """
     Get geolocation information for the requesting client's IP address.
 

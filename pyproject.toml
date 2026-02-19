@@ -59,7 +59,8 @@ select = [
 
 ignore = [
     "E501",  # line too long
-    "B904",   # raise without from inside except
+    "B904",  # raise without from inside except
+    "B008",  # function-call-in-default-argument
 ]
 
 [tool.ruff.format]

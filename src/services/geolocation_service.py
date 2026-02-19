@@ -1,4 +1,4 @@
-from ipaddress import AddressValueError, ip_address
+from ipaddress import ip_address
 
 import httpx
 from fastapi import Request
@@ -47,7 +47,7 @@ class GeoIPService:
 
         try:
             ip_obj = ip_address(ip)
-        except AddressValueError:
+        except ValueError:
             raise ValueError(f"Invalid IP address: {ip}")
 
         if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_reserved:
@@ -121,6 +121,3 @@ class GeoIPService:
             is_proxy=ip_data.proxy,
             is_hosting=ip_data.hosting,
         )
-
-
-geo_service = GeoIPService()
