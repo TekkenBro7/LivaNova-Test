@@ -1,18 +1,31 @@
 import uvicorn
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.core.config import base_config
+from src.core.constants import DESCRIPTION
+
+app = FastAPI(
+    title=base_config.APP_NAME,
+    version="1.0.0",
+    description=DESCRIPTION,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+)
 
 
-@app.get("/test")
-async def test() -> dict[str, str]:
+@app.get(
+    "/health",
+    summary="Health check",
+)
+async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
 if __name__ == "__main__":
     uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
+        "src.main:app",
+        host=base_config.HOST,
+        port=base_config.PORT,
+        reload=base_config.RELOAD,
     )
